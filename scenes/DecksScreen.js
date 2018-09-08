@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { Deck } from '../components';
+import { black } from '../utils/colors';
 export default class DecksScreen extends Component {
   handleDeckPress = (deck) => () => {
     this.props.navigation.navigate("SingleDeck", { deck: deck })
@@ -25,11 +26,11 @@ export default class DecksScreen extends Component {
 
 const styles = StyleSheet.create({
   scrollStyle: {
-    backgroundColor: "#110c11"
+    backgroundColor: black
   },
   scrollContent: {
     justifyContent: 'space-around',
-    backgroundColor: "#110c11",
+    backgroundColor: black,
     paddingTop: 5
   }
 });

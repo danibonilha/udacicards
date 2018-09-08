@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import { defaultPrimaryColor, textprimaryColor, white } from '../utils/colors';
+import React  from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { defaultPrimaryColor, textprimaryColor } from '../utils/colors';
 
 const handleCardsText = (cardsNumber) => (
   cardsNumber > 1 ? `${cardsNumber} cards` : `${cardsNumber} card`
 );
 
-export const Deck = ({ deck, onPress }) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={styles.deckContainer}>
+export const Deck = ({ deck, onPress, disabled, deckStyle }) => (
+  <TouchableOpacity onPress={onPress} disabled={disabled}>
+    <View style={[styles.deckContainer, deckStyle]}>
       <Text style={styles.title}>
         {deck.title}
       </Text>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 10,
     maxHeight: 150,
-    minHeight: 100,
+    minHeight: 120,
   },
   title: {
     color: textprimaryColor,

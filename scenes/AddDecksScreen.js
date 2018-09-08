@@ -1,11 +1,42 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import {
+  black,
+  textprimaryColor
+} from "../utils/colors";
+import { TextInput, Button } from "../components";
 
 export default class AddDecksScreen extends Component {
+  state = {
+    deckName: ""
+  };
+
+  handleTextChange = deckName => {
+    this.setState({ deckName });
+  };
+
+  handleCreateDeck = () => {
+    this.setState({ deckName: "" });
+  };
+
   render() {
+    const { deckName } = this.state;
     return (
       <View style={styles.container}>
-        <Text>Add Decks Screen</Text>
+        <Text
+          style={styles.text}
+        >
+          What is the title of your new deck ?
+        </Text>
+        <TextInput
+          onChangeText={this.handleTextChange}
+          value={deckName}
+        />
+        <Button
+          onPress={this.handleCreateDeck}
+          label="Create Deck"
+          disabled={!deckName}
+        />
       </View>
     );
   }
@@ -14,8 +45,13 @@ export default class AddDecksScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: black,
+    justifyContent: "flex-start"
   },
+  text: {
+    padding: 25,
+    color: textprimaryColor,
+    fontSize: 35,
+    textAlign: "center"
+  }
 });
