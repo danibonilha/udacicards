@@ -25,11 +25,11 @@ export default class AddCardScreen extends Component {
 
   handleSubmit = () => {
     console.log("submit");
+    this.props.navigation.goBack();
   };
 
   render() {
     const { question, answer } = this.state;
-    console.log(this.state);
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Enter a question:</Text>

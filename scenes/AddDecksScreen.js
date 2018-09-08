@@ -16,6 +16,7 @@ export default class AddDecksScreen extends Component {
   };
 
   handleCreateDeck = () => {
+    this.props.navigation.navigate("AddCard")
     this.setState({ deckName: "" });
   };
 
