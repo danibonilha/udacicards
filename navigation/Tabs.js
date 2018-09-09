@@ -1,9 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
-import { Platform } from 'react-native';
-import { purple, white, lightPrimaryColor, accentColor, darkPrimaryColor, defaultPrimaryColor, dividerColor } from '../utils/colors';
+import {  white, darkPrimaryColor } from '../utils/colors';
 import { MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
-import { AddDecksScreen, DecksScreen } from "../scenes"
+import { AddDecksScreen, DecksScreen } from '../scenes';
 
 /* eslint react/display-name: 0 */
 export const Tabs = createBottomTabNavigator(

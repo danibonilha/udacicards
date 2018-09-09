@@ -1,41 +1,40 @@
-import React  from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { defaultPrimaryColor, textprimaryColor } from '../utils/colors';
 
 const handleCardsText = (cardsNumber) => (
-  cardsNumber > 1 ? `${cardsNumber} cards` : `${cardsNumber} card`
+	cardsNumber > 1 ? `${cardsNumber} cards` : `${cardsNumber} card`
 );
 
 export const Deck = ({ deck, onPress, disabled, deckStyle }) => (
-  <TouchableOpacity onPress={onPress} disabled={disabled}>
-    <View style={[styles.deckContainer, deckStyle]}>
-      <Text style={styles.title}>
-        {deck.title}
-      </Text>
-      <Text style={styles.cardsNumber}>
-        {handleCardsText(deck.questions.length)}
-      </Text>
-    </View>
-  </TouchableOpacity>
+	<TouchableOpacity onPress={onPress} disabled={disabled}>
+		<View style={[styles.deckContainer, deckStyle]}>
+			<Text style={styles.title}>
+				{deck.title}
+			</Text>
+			<Text style={styles.cardsNumber}>
+				{handleCardsText(deck.questions.length)}
+			</Text>
+		</View>
+	</TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
-  deckContainer: {
-    flex: 1,
-    backgroundColor: defaultPrimaryColor,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    borderRadius: 5,
-    margin: 10,
-    maxHeight: 150,
-    minHeight: 120,
-  },
-  title: {
-    color: textprimaryColor,
-    fontSize: 30
-  },
-  cardsNumber: {
-    color: textprimaryColor,
-    fontSize: 15
-  }
+	deckContainer: {
+		backgroundColor: defaultPrimaryColor,
+		alignItems: 'center',
+		justifyContent: 'space-evenly',
+		borderRadius: 5,
+		margin: 10,
+		maxHeight: 150,
+		minHeight: 120,
+	},
+	title: {
+		color: textprimaryColor,
+		fontSize: 30
+	},
+	cardsNumber: {
+		color: textprimaryColor,
+		fontSize: 15
+	}
 });
