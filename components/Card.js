@@ -14,7 +14,6 @@ export const Card = ({ card, onPress }) => (
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		backgroundColor: accentColor,
 		alignItems: 'center',
 		justifyContent: 'center',

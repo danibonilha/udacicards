@@ -15,6 +15,9 @@ export const TextInput = ({
 		autoFocus={autoFocus}
 		underlineColorAndroid="transparent"
 		multiline={multiline}
+		returnKeyType="done"
+		numberOfLines={3}
+		blurOnSubmit={true}
 		value={value}
 	/>
 );
