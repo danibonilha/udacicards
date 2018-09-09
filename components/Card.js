@@ -1,25 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { textprimaryColor, accentColor } from '../utils/colors';
+import { textprimaryColor, accentColor, darkPrimaryColor, defaultPrimaryColor } from '../utils/colors';
 
-export const Card = ({ card, onPress }) => (
+export const Card = ({ text, onPress, children }) => (
 	<TouchableOpacity onPress={onPress} >
 		<View style={[styles.container]}>
 			<Text style={styles.title}>
-				{card.question}
+				{text}
 			</Text>
+			{children}
 		</View>
 	</TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: accentColor,
+		backgroundColor: defaultPrimaryColor,
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderRadius: 5,
 		margin: 10,
-		minHeight: 300
+		minHeight: 500
 	},
 	title: {
 		color: textprimaryColor,

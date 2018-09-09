@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import { black, textprimaryColor } from '../utils/colors';
 import { TextInput, Button } from '../components';
+import { createCard } from '../store/actions';
 
 const INPUT_FONT_SIZE = 20;
 const QUESTION = 'question';
 const ANSWER = 'answer';
 
-export default class AddCardScreen extends Component {
+class AddCardScreen extends Component {
 	static navigationOptions = () => {
 		return {
 			title: 'Add Card'
@@ -24,8 +26,10 @@ export default class AddCardScreen extends Component {
 	};
 
 	handleSubmit = () => {
-		console.log('submit');
-		this.props.navigation.goBack();
+		const { createCard, navigation, currentDeck } = this.props;
+		const card = {...this.state };
+		createCard({ deckID: currentDeck, card });
+		navigation.goBack();
 	};
 
 	render() {
@@ -56,6 +60,10 @@ export default class AddCardScreen extends Component {
 		);
 	}
 }
+
+const mapStateToProps = ({ currentDeck }) => ({ currentDeck});
+
+export default connect(mapStateToProps, { createCard })(AddCardScreen);
 
 const styles = StyleSheet.create({
 	container: {

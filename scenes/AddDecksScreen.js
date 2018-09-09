@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { createDeck } from '../store/actions';
 import {
 	black,
 	textprimaryColor
 } from '../utils/colors';
 import { TextInput, Button } from '../components';
 
-export default class AddDecksScreen extends Component {
+class AddDecksScreen extends Component {
 	state = {
 		deckName: ''
 	};
@@ -16,8 +18,11 @@ export default class AddDecksScreen extends Component {
 	};
 
 	handleCreateDeck = () => {
-		this.props.navigation.navigate('AddCard');
+		const { deckName } = this.state;
+		const { createDeck, navigation } = this.props;
+		createDeck(deckName);
 		this.setState({ deckName: '' });
+		navigation.navigate('Decks');
 	};
 
 	render() {
@@ -42,6 +47,8 @@ export default class AddDecksScreen extends Component {
 		);
 	}
 }
+
+export default connect(null, { createDeck })(AddDecksScreen);
 
 const styles = StyleSheet.create({
 	container: {

@@ -16,7 +16,6 @@ export const TextInput = ({
 		underlineColorAndroid="transparent"
 		multiline={multiline}
 		returnKeyType="done"
-		numberOfLines={3}
 		blurOnSubmit={true}
 		value={value}
 	/>

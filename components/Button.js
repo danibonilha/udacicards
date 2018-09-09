@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { textprimaryColor, defaultPrimaryColor } from '../utils/colors';
+import { textprimaryColor, defaultPrimaryColor, black } from '../utils/colors';
 
 export const Button = ({ label, onPress, disabled }) => (
 	<TouchableOpacity
@@ -21,7 +21,11 @@ const styles = StyleSheet.create({
 		backgroundColor: defaultPrimaryColor,
 		margin: 25,
 		borderRadius: 12,
-		justifyContent: 'center'
+		justifyContent: 'center',
+		shadowOffset: { width: 0.5, height: 0.5, },
+		shadowColor: black,
+		shadowOpacity: 1.0,
+		elevation: 0.5
 	},
 	label: {
 		color: textprimaryColor,

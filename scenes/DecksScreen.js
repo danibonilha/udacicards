@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 import { Deck } from '../components';
 import { black } from '../utils/colors';
-export default class DecksScreen extends Component {
-	handleDeckPress = deck => () => {
-		this.props.navigation.navigate('SingleDeck', { deck: deck });
+import { setCurrentDeck } from '../store/actions';
+
+class DecksScreen extends Component {
+	handleDeckPress = deckID => () => {
+		const { setCurrentDeck, navigation } = this.props;
+		setCurrentDeck(deckID);
+		navigation.navigate('SingleDeck');
 	};
 	render() {
+		const { decks } = this.props;
 		return (
 			<ScrollView
 				style={styles.scrollStyle}
@@ -16,13 +22,17 @@ export default class DecksScreen extends Component {
 					<Deck
 						key={deck.title}
 						deck={deck}
-						onPress={this.handleDeckPress(deck)}
+						onPress={this.handleDeckPress(deck.title)}
 					/>
 				))}
 			</ScrollView>
 		);
 	}
 }
+
+const mapStateToProps = ({ decks }) => ({ decks });
+
+export default connect(mapStateToProps, { setCurrentDeck })(DecksScreen);
 
 const styles = StyleSheet.create({
 	scrollStyle: {
@@ -34,29 +44,3 @@ const styles = StyleSheet.create({
 		paddingTop: 5
 	}
 });
-
-const decks = {
-	React: {
-		title: 'React',
-		questions: [
-			{
-				question: 'What is React?',
-				answer: 'A library for managing user interfaces'
-			},
-			{
-				question: 'Where do you make Ajax requests in React?',
-				answer: 'The componentDidMount lifecycle event'
-			}
-		]
-	},
-	JavaScript: {
-		title: 'JavaScript',
-		questions: [
-			{
-				question: 'What is a closure?',
-				answer:
-					'The combination of a function and the lexical environment within which that function was declared.'
-			}
-		]
-	}
-};
