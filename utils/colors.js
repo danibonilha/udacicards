@@ -9,8 +9,8 @@ export const pink = '#b93fb3';
 export const black = '#110c11';
 export const grey = '#808080';
 
-export const darkPrimaryColor = '#512DA8';
-export const defaultPrimaryColor = '#673AB7';
+export const darkPrimaryColor =  '#660019';
+export const defaultPrimaryColor = '#800020';
 export const lightPrimaryColor = 'rgb(135, 105, 192)';
 export const textprimaryColor = '#FFFFFF';
 export const accentColor = '#536DFE';

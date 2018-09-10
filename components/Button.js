@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
 		margin: 25,
 		borderRadius: 12,
 		justifyContent: 'center',
-		shadowOffset: { width: 0.5, height: 0.5, },
+		shadowOffset: { width: 2, height: 2 },
 		shadowColor: black,
-		shadowOpacity: 1.0,
-		elevation: 0.5
+		shadowOpacity: 0.4,
+		elevation: 5
 	},
 	label: {
 		color: textprimaryColor,

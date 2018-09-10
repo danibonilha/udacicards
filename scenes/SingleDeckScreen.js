@@ -17,7 +17,7 @@ class SingleDeckScreen extends Component {
 		const { deck } = this.props;
 		return (
 			<View style={styles.container}>
-				<View style={{ flex: 1 }}>
+				<View style={{ justifyContent: 'center' }}>
 					<Deck deck={deck} disabled={true} deckStyle={{ minHeight: 250 }} />
 				</View>
 				<View style={styles.btnContainer}>
@@ -36,7 +36,8 @@ export default connect(mapStateToProps)(SingleDeckScreen);
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: black
+		backgroundColor: black,
+		justifyContent: 'center'
 	},
 	btnContainer: {
 		flexDirection: 'row',

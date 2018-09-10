@@ -8,27 +8,56 @@ class QuizScreen extends Component {
 	static navigationOptions = () => ({ title: 'Quiz' });
 
 	state = {
-		flipped: false
+		flipped: false,
+		questionIndex: 0
 	};
 
 	handleFlip = () => {
 		this.setState(prev => ({ flipped: !prev.flipped }));
 	};
 
+	handleAnswer = () => {
+		const { questions } = this.props;
+		const { questionIndex } = this.state;
+		if (questions.length === questionIndex + 1) {
+			alert('FinishedQuiz');
+			this.props.navigation.goBack();
+			return;
+		}
+		this.setState(prev => ({
+			questionIndex: prev.questionIndex + 1,
+			flipped: false
+		}));
+	};
+
 	render() {
 		const { questions } = this.props;
+		const { questionIndex } = this.state;
+		const card = questions[questionIndex];
 		return (
 			<View style={styles.container}>
 				{!this.state.flipped ? (
-					<View style={{ flex: 1, margin: 10 }}>
-						<Card text={questions[0].question} onPress={this.handleFlip} />
+					<View style={styles.cardContainer}>
+						<Card
+							text={card.question}
+							onPress={this.handleFlip}
+						/>
 					</View>
 				) : (
-					<View style={{ flex: 1, margin: 10 }}>
-						<Card text={questions[0].answer} onPress={this.handleFlip} >
+					<View style={styles.cardContainer}>
+						<Card
+							text={card.answer}
+							onPress={this.handleFlip}
+						>
 							<View style={styles.btnContainer}>
-								<Button label="Got it! 🤓" />
-								<Button label="Oops! 😭" />
+								<Button
+									label="Got it! 🤓"
+									onPress={this.handleAnswer}
+								/>
+								<Button
+									label="Oops! 😭"
+									onPress={this.handleAnswer}
+								/>
 							</View>
 						</Card>
 					</View>
@@ -55,5 +84,9 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center'
+	},
+	cardContainer: {
+		flex: 1,
+		margin: 10
 	}
 });

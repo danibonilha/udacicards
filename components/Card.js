@@ -1,13 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { textprimaryColor, accentColor, darkPrimaryColor, defaultPrimaryColor } from '../utils/colors';
+import { textprimaryColor, defaultPrimaryColor } from '../utils/colors';
 
 export const Card = ({ text, onPress, children }) => (
-	<TouchableOpacity onPress={onPress} >
-		<View style={[styles.container]}>
+	<TouchableOpacity
+		onPress={onPress} style={styles.container}>
+		<View style={styles.titleContainer}>
 			<Text style={styles.title}>
 				{text}
 			</Text>
+		</View>
+		<View style={{ flex: 1 }}>
 			{children}
 		</View>
 	</TouchableOpacity>
@@ -15,17 +18,23 @@ export const Card = ({ text, onPress, children }) => (
 
 const styles = StyleSheet.create({
 	container: {
+		paddingTop: 15,
 		backgroundColor: defaultPrimaryColor,
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderRadius: 5,
 		margin: 10,
-		minHeight: 500
+		flex: 1,
 	},
 	title: {
 		color: textprimaryColor,
 		fontSize: 28,
 		textAlign: 'center',
 		padding: 10
+	},
+	titleContainer: {
+		flex: 4,
+		alignItems: 'center',
+		justifyContent: 'center'
 	}
 });
