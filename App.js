@@ -10,15 +10,19 @@ export default class App extends React.Component {
 		return (
 			<Provider store={store}>
 				<PersistGate persistor={persistor}>
-					<View style={styles.container}>
-						<StatusBar barStyle="light-content" />
-						<MainNavigator />
-					</View>
+					<UdaciCards />
 				</PersistGate>
 			</Provider>
 		);
 	}
 }
+
+const UdaciCards = () => (
+	<View style={styles.container}>
+		<StatusBar barStyle="light-content" />
+		<MainNavigator />
+	</View>
+);
 
 const styles = StyleSheet.create({
 	container: {

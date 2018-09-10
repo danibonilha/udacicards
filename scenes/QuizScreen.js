@@ -4,23 +4,36 @@ import { connect } from 'react-redux';
 import { Card, Button } from '../components';
 import { black } from '../utils/colors';
 
+const RIGHT = 'CORRECT';
+const WRONG = 'INCORRECT';
+
 class QuizScreen extends Component {
 	static navigationOptions = () => ({ title: 'Quiz' });
-
 	state = {
 		flipped: false,
-		questionIndex: 0
+		questionIndex: 0,
+		score: 0
+	}
+
+	getQuestionNumber = () => this.state.questionIndex + 1;
+	getQuestionsSize = () => this.props.questions.length;
+
+	handleScore = (point) => {
+		this.setState(prev => ({ score: prev.score + point }));
 	};
 
 	handleFlip = () => {
 		this.setState(prev => ({ flipped: !prev.flipped }));
 	};
 
-	handleAnswer = () => {
-		const { questions } = this.props;
-		const { questionIndex } = this.state;
-		if (questions.length === questionIndex + 1) {
-			alert('FinishedQuiz');
+	handleAnswer = (type) => () => {
+		const questionsTotal = this.getQuestionsSize();
+		const questionNumber = this.getQuestionNumber();
+		const point = type === RIGHT ? 1 : 0;
+
+		this.handleScore(point);
+
+		if (questionsTotal === questionNumber) {
 			this.props.navigation.goBack();
 			return;
 		}
@@ -34,6 +47,9 @@ class QuizScreen extends Component {
 		const { questions } = this.props;
 		const { questionIndex } = this.state;
 		const card = questions[questionIndex];
+		const questionsTotal = this.getQuestionsSize();
+		const questionNumber = this.getQuestionNumber();
+
 		return (
 			<View style={styles.container}>
 				{!this.state.flipped ? (
@@ -41,6 +57,8 @@ class QuizScreen extends Component {
 						<Card
 							text={card.question}
 							onPress={this.handleFlip}
+							questionsTotal={questionsTotal}
+							questionNumber={questionNumber}
 						/>
 					</View>
 				) : (
@@ -48,15 +66,17 @@ class QuizScreen extends Component {
 						<Card
 							text={card.answer}
 							onPress={this.handleFlip}
+							questionsTotal={questionsTotal}
+							questionNumber={questionNumber}
 						>
 							<View style={styles.btnContainer}>
 								<Button
 									label="Got it! 🤓"
-									onPress={this.handleAnswer}
+									onPress={this.handleAnswer(RIGHT)}
 								/>
 								<Button
 									label="Oops! 😭"
-									onPress={this.handleAnswer}
+									onPress={this.handleAnswer(WRONG)}
 								/>
 							</View>
 						</Card>
