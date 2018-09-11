@@ -16,10 +16,24 @@ class QuizScreen extends Component {
 	}
 
 	getQuestionNumber = () => this.state.questionIndex + 1;
+
 	getQuestionsSize = () => this.props.questions.length;
 
+	goToScore = () => {
+		const { score } = this.state;
+		const { navigate } = this.props.navigation;
+		const scoreInfo = {
+			score,
+			questionsTotal: this.getQuestionsSize()
+		};
+		navigate('Score', { scoreInfo });
+	}
+
 	handleScore = (point) => {
-		this.setState(prev => ({ score: prev.score + point }));
+		this.setState(prev => ({
+			score: prev.score + point
+		}), this.goToScore
+		);
 	};
 
 	handleFlip = () => {
@@ -31,15 +45,14 @@ class QuizScreen extends Component {
 		const questionNumber = this.getQuestionNumber();
 		const point = type === RIGHT ? 1 : 0;
 
-		this.handleScore(point);
-
 		if (questionsTotal === questionNumber) {
-			this.props.navigation.goBack();
+			this.handleScore(point);
 			return;
 		}
 		this.setState(prev => ({
 			questionIndex: prev.questionIndex + 1,
-			flipped: false
+			flipped: false,
+			score: prev.score + point
 		}));
 	};
 
@@ -59,6 +72,7 @@ class QuizScreen extends Component {
 							onPress={this.handleFlip}
 							questionsTotal={questionsTotal}
 							questionNumber={questionNumber}
+							nextCard="Answer"
 						/>
 					</View>
 				) : (
@@ -68,6 +82,7 @@ class QuizScreen extends Component {
 							onPress={this.handleFlip}
 							questionsTotal={questionsTotal}
 							questionNumber={questionNumber}
+							nextCard="Question"
 						>
 							<View style={styles.btnContainer}>
 								<Button

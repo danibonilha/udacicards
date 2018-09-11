@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Deck, Button } from '../components';
 import { black } from '../utils/colors';
@@ -13,6 +13,18 @@ class SingleDeckScreen extends Component {
 
 	navigateTo = route => () => this.props.navigation.navigate(route);
 
+	handleQuiz = () => {
+		const { deck } = this.props;
+
+		if(!deck.questions.length){
+			Alert.alert('Oops!',
+				'There are no cards yet, add at least one to start a quiz =)'
+			);
+			return;
+		}
+		this.navigateTo('Quiz')();
+	}
+
 	render() {
 		const { deck } = this.props;
 		return (
@@ -21,7 +33,7 @@ class SingleDeckScreen extends Component {
 					<Deck deck={deck} disabled={true} deckStyle={{ minHeight: 250 }} />
 				</View>
 				<View style={styles.btnContainer}>
-					<Button label="Start Quiz" onPress={this.navigateTo('Quiz')} />
+					<Button label="Start Quiz" onPress={this.handleQuiz} />
 					<Button label="Add Card" onPress={this.navigateTo('AddCard')} />
 				</View>
 			</View>

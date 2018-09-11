@@ -2,7 +2,7 @@
 import { createStackNavigator } from 'react-navigation';
 import { Tabs } from './Tabs';
 import { darkPrimaryColor, textprimaryColor } from '../utils/colors';
-import { SingleDeckScreen, AddCardScreen, QuizScreen } from '../scenes';
+import { SingleDeckScreen, AddCardScreen, QuizScreen, ScoreScreen } from '../scenes';
 
 export const MainNavigator = createStackNavigator(
 	{
@@ -15,6 +15,7 @@ export const MainNavigator = createStackNavigator(
 		SingleDeck: SingleDeckScreen,
 		AddCard: AddCardScreen,
 		Quiz: QuizScreen,
+		Score: ScoreScreen,
 	},
 	{
 		initialRouteName: 'Home',

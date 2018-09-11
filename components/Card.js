@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { textprimaryColor, defaultPrimaryColor } from '../utils/colors';
+import { Feather } from '@expo/vector-icons';
+import { textprimaryColor, defaultPrimaryColor, white } from '../utils/colors';
 
 export const Card = ({
 	text,
 	onPress,
 	children,
 	questionNumber,
-	questionsTotal
+	questionsTotal,
+	nextCard
 }) => (
 	<TouchableOpacity onPress={onPress} style={styles.container}>
 		<Text style={styles.title}>
@@ -16,7 +18,19 @@ export const Card = ({
 		<View style={styles.titleContainer}>
 			<Text style={styles.title}>{text}</Text>
 		</View>
-		<View style={{ flex: 1 }}>{children}</View>
+		<View style={{ flex: 1 }}>
+			{children}
+		</View>
+		<View style={styles.turnContainer}>
+			<Text style={styles.turnLabel}>
+					Show {nextCard}
+			</Text>
+			<Feather
+				name='refresh-ccw'
+				size={30}
+				color={white}
+			/>
+		</View>
 	</TouchableOpacity>
 );
 
@@ -37,7 +51,19 @@ const styles = StyleSheet.create({
 		padding: 10
 	},
 	titleContainer: {
-		flex: 4,
+		flex: 3,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	turnLabel: {
+		color: textprimaryColor,
+		fontSize: 23,
+		textAlign: 'center',
+		padding: 10
+	},
+	turnContainer: {
+		flex: 1,
+		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center'
 	}
