@@ -4,8 +4,12 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { MainNavigator } from './navigation/MainNavigator';
 import { store, persistor } from './store/store';
+import { setLocalNotification } from './utils/helpers';
 
 export default class App extends React.Component {
+	componentDidMount(){
+		setLocalNotification();
+	}
 	render() {
 		return (
 			<Provider store={store}>
