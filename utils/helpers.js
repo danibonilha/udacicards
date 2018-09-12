@@ -3,7 +3,10 @@ import { Notifications, Permissions } from 'expo';
 
 const NOTIFICATION_KEY = 'UdaciCards:notifications';
 
-export const clearLocalNotification = () => (AsyncStorage.removeItem(NOTIFICATION_KEY).then(Notifications.cancelAllScheduledNotificationAsync));
+export const clearLocalNotification = async () => {
+	await AsyncStorage.removeItem(NOTIFICATION_KEY);
+	Notifications.cancelAllScheduledNotificationsAsync();
+};
 
 const createNotification = () => ({
 	title: 'Hi, there!',
@@ -20,39 +23,26 @@ const createNotification = () => ({
 }
 );
 
-export const setLocalNotification = () => {
-	console.log('setlocationbeforestorafe');
-	AsyncStorage.getItem(NOTIFICATION_KEY)
-		.then((data) => console.log(data))
-		.then((data) => {
-			console.log('data', data);
-			if (data === null) {
-				Permissions.askAsync(Permissions.NOTIFICATIONS)
-					.then(({ status }) => {
-						console.log('status', status);
-						if (status === 'granted') {
-							Notifications.cancelAllScheduledNotificationsAsync();
+export const setLocalNotification = async () => {
+	const data = await AsyncStorage.getItem(NOTIFICATION_KEY);
+	const parsedData = JSON.parse(data);
+	if (parsedData === null) {
+		const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+		if (status === 'granted') {
 
-							let tomorrow = new Date();
-							console.log('todar', tomorrow);
-							tomorrow.setDate(tomorrow.getDate());
-							console.log('setDate', tomorrow);
-							tomorrow.setHours(17);
-							tomorrow.setMinutes(38);
-							console.log(tomorrow);
+			Notifications.cancelAllScheduledNotificationsAsync();
 
-							Notifications.scheduleLocalNotificationAsync(
-								createNotification(),
-								{
-									time: tomorrow,
-									repeat: 'day',
-								}
-							);
+			let tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			Notifications.scheduleLocalNotificationAsync(
+				createNotification(),
+				{
+					time: tomorrow,
+					repeat: 'day',
+				}
+			);
 
-							AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
-							console.log('setNotification');
-						}
-					});
-			}
-		});
+			AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+		}
+	}
 };

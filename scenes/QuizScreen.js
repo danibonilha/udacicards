@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, Button } from '../components';
 import { black } from '../utils/colors';
-import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
+import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
 
 const RIGHT = 'CORRECT';
 const WRONG = 'INCORRECT';
@@ -17,6 +17,11 @@ class QuizScreen extends Component {
 	}
 	componentDidMount = () => {
 		clearLocalNotification().then(setLocalNotification());
+	}
+
+	componentDidMount = async () => {
+		await	clearLocalNotification();
+		setLocalNotification();
 	}
 
 	getQuestionNumber = () => this.state.questionIndex + 1;
