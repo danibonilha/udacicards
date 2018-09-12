@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { connect } from 'react-redux';
 import { black, textprimaryColor } from '../utils/colors';
-import { TextInput, Button } from '../components';
-import { createCard } from '../store/actions';
-
-const INPUT_FONT_SIZE = 20;
-const QUESTION = 'question';
-const ANSWER = 'answer';
+import { ScoreCard, Button } from '../components';
 
 class ScoreScreen extends Component {
 	static navigationOptions = () => {
@@ -17,12 +11,22 @@ class ScoreScreen extends Component {
 	};
 
 	render() {
-		const { scoreInfo } = this.props.navigation.state.params;
+		const { score, questionsTotal } = this.props.navigation.state.params.scoreInfo;
 		return (
 			<View style={styles.container}>
-				<Text style={styles.text}>
-					Score:{scoreInfo.score} of {scoreInfo.questionsTotal}
-				</Text>
+				<ScoreCard
+					score={score}
+					questionsTotal={questionsTotal}
+				>
+					<View style={styles.btnContainer}>
+						<Button
+							label="Try it again! 🤓"
+						/>
+						<Button
+							label="Back to Deck 🧐"
+						/>
+					</View>
+				</ScoreCard>
 			</View>
 		);
 	}
@@ -41,5 +45,9 @@ const styles = StyleSheet.create({
 		color: textprimaryColor,
 		fontSize: 30,
 		textAlign: 'left'
+	},
+	btnContainer: {
+		alignItems: 'center',
+		justifyContent: 'center'
 	}
 });
