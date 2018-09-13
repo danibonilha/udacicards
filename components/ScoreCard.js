@@ -3,11 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { textprimaryColor, defaultPrimaryColor, black } from '../utils/colors';
 
-
 /* eslint react/display-name: 0 */
 const results = {
 	WIN: {
-		msg: 'You Rock! Got it all!',
+		msg: 'You Rock! Nailed it!',
 		getIcon: () => (
 			<Entypo
 				name='trophy'
@@ -38,12 +37,7 @@ const results = {
 	}
 };
 
-
-
-// const text = (trophyIcon) => trophyIcon ?
-
 export const ScoreCard = ({
-	text,
 	score,
 	children,
 	result = 'BETWEEN',

@@ -8,19 +8,22 @@ import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
 const RIGHT = 'CORRECT';
 const WRONG = 'INCORRECT';
 
+const initialState = {
+	flipped: false,
+	questionIndex: 0,
+	score: 0
+};
+
 class QuizScreen extends Component {
 	static navigationOptions = () => ({ title: 'Quiz' });
-	state = {
-		flipped: false,
-		questionIndex: 0,
-		score: 0
-	}
+	state = initialState
+
 	componentDidMount = () => {
 		clearLocalNotification().then(setLocalNotification());
 	}
 
 	componentDidMount = async () => {
-		await	clearLocalNotification();
+		await clearLocalNotification();
 		setLocalNotification();
 	}
 
@@ -35,6 +38,7 @@ class QuizScreen extends Component {
 			score,
 			questionsTotal: this.getQuestionsSize()
 		};
+		this.setState({ ...initialState });
 		navigate('Score', { scoreInfo });
 	}
 
