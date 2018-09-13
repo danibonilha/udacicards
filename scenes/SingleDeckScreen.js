@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Deck, Button } from '../components';
 import { black } from '../utils/colors';
 
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: black,
+		justifyContent: 'center'
+	},
+	btnContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	}
+});
 class SingleDeckScreen extends Component {
-	static navigationOptions = ({ navigation }) => {
-		return {
-			title: 'Deck'
-		};
-	};
 
 	navigateTo = route => () => this.props.navigation.navigate(route);
 
@@ -45,15 +53,9 @@ const mapStateToProps = ({ decks, currentDeck }) => ({ deck: decks[currentDeck] 
 
 export default connect(mapStateToProps)(SingleDeckScreen);
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: black,
-		justifyContent: 'center'
-	},
-	btnContainer: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center'
-	}
-});
+SingleDeckScreen.propTypes = {
+	navigation: PropTypes.shape({
+		navigate: PropTypes.func.isRequired,
+	}).isRequired,
+	deck: PropTypes.shape({}).isRequired
+};

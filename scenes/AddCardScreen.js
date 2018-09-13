@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { black, textprimaryColor } from '../utils/colors';
 import { TextInput, Button } from '../components';
@@ -9,13 +10,20 @@ const INPUT_FONT_SIZE = 20;
 const QUESTION = 'question';
 const ANSWER = 'answer';
 
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: black
+	},
+	text: {
+		paddingTop: 20,
+		paddingLeft: 25,
+		color: textprimaryColor,
+		fontSize: 30,
+		textAlign: 'left'
+	}
+});
 class AddCardScreen extends Component {
-	static navigationOptions = () => {
-		return {
-			title: 'Add Card'
-		};
-	};
-
 	state = {
 		[QUESTION]: '',
 		[ANSWER]: ''
@@ -65,16 +73,10 @@ const mapStateToProps = ({ currentDeck }) => ({ currentDeck});
 
 export default connect(mapStateToProps, { createCard })(AddCardScreen);
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: black
-	},
-	text: {
-		paddingTop: 20,
-		paddingLeft: 25,
-		color: textprimaryColor,
-		fontSize: 30,
-		textAlign: 'left'
-	}
-});
+AddCardScreen.propTypes = {
+	navigation: PropTypes.shape({
+		navigate: PropTypes.func.isRequired,
+	}).isRequired,
+	createCard: PropTypes.func.isRequired,
+	currentDeck: PropTypes.string.isRequired
+};

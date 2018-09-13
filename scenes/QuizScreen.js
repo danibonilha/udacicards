@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Card, Button } from '../components';
 import { black } from '../utils/colors';
@@ -14,8 +15,24 @@ const initialState = {
 	score: 0
 };
 
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: black,
+		justifyContent: 'center'
+	},
+	btnContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	cardContainer: {
+		flex: 1,
+		margin: 10
+	}
+});
+
 class QuizScreen extends Component {
-	static navigationOptions = () => ({ title: 'Quiz' });
 	state = initialState
 
 	componentDidMount = () => {
@@ -85,7 +102,7 @@ class QuizScreen extends Component {
 							onPress={this.handleFlip}
 							questionsTotal={questionsTotal}
 							questionNumber={questionNumber}
-							nextCard="Answer"
+							nextCardType="Answer"
 						/>
 					</View>
 				) : (
@@ -95,7 +112,7 @@ class QuizScreen extends Component {
 							onPress={this.handleFlip}
 							questionsTotal={questionsTotal}
 							questionNumber={questionNumber}
-							nextCard="Question"
+							nextCardType="Question"
 						>
 							<View style={styles.btnContainer}>
 								<Button
@@ -122,19 +139,9 @@ const mapStateToProps = ({ decks, currentDeck }) => {
 
 export default connect(mapStateToProps)(QuizScreen);
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: black,
-		justifyContent: 'center'
-	},
-	btnContainer: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	cardContainer: {
-		flex: 1,
-		margin: 10
-	}
-});
+QuizScreen.propTypes = {
+	navigation: PropTypes.shape({
+		navigate: PropTypes.func.isRequired,
+	}).isRequired,
+	questions: PropTypes.arrayOf(PropTypes.shape({}))
+};

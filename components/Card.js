@@ -1,38 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import { textprimaryColor, defaultPrimaryColor, white } from '../utils/colors';
-
-export const Card = ({
-	text,
-	onPress,
-	children,
-	questionNumber,
-	questionsTotal,
-	nextCard
-}) => (
-	<TouchableOpacity onPress={onPress} style={styles.container}>
-		<Text style={styles.title}>
-			{questionNumber} | {questionsTotal}
-		</Text>
-		<View style={styles.titleContainer}>
-			<Text style={styles.title}>{text}</Text>
-		</View>
-		<View style={{ flex: 1 }}>
-			{children}
-		</View>
-		<View style={styles.turnContainer}>
-			<Text style={styles.turnLabel}>
-					Show {nextCard}
-			</Text>
-			<Feather
-				name='refresh-ccw'
-				size={30}
-				color={white}
-			/>
-		</View>
-	</TouchableOpacity>
-);
 
 const styles = StyleSheet.create({
 	container: {
@@ -68,3 +38,43 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	}
 });
+
+export const Card = ({
+	text,
+	onPress,
+	children,
+	questionNumber,
+	questionsTotal,
+	nextCardType
+}) => (
+	<TouchableOpacity onPress={onPress} style={styles.container}>
+		<Text style={styles.title}>
+			{questionNumber} | {questionsTotal}
+		</Text>
+		<View style={styles.titleContainer}>
+			<Text style={styles.title}>{text}</Text>
+		</View>
+		<View style={{ flex: 1 }}>
+			{children}
+		</View>
+		<View style={styles.turnContainer}>
+			<Text style={styles.turnLabel}>
+					Show {nextCardType}
+			</Text>
+			<Feather
+				name='refresh-ccw'
+				size={30}
+				color={white}
+			/>
+		</View>
+	</TouchableOpacity>
+);
+
+Card.propTypes = {
+	children: PropTypes.node,
+	text: PropTypes.string.isRequired,
+	onPress: PropTypes.func.isRequired,
+	nextCardType: PropTypes.string.isRequired,
+	questionNumber: PropTypes.number.isRequired,
+	questionsTotal: PropTypes.number.isRequired,
+};

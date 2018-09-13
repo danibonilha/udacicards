@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { black, textprimaryColor } from '../utils/colors';
 import { ScoreCard, Button } from '../components';
 
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: black
+	},
+	text: {
+		paddingTop: 20,
+		paddingLeft: 25,
+		color: textprimaryColor,
+		fontSize: 30,
+		textAlign: 'left'
+	},
+	btnContainer: {
+		alignItems: 'center',
+		justifyContent: 'center'
+	}
+});
 
 class ScoreScreen extends Component {
-	static navigationOptions = () => {
-		return {
-			title: 'Score'
-		};
-	};
 
 	navigateTo = route => () => this.props.navigation.navigate(route);
 
@@ -47,20 +60,17 @@ class ScoreScreen extends Component {
 
 export default ScoreScreen;
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: black
-	},
-	text: {
-		paddingTop: 20,
-		paddingLeft: 25,
-		color: textprimaryColor,
-		fontSize: 30,
-		textAlign: 'left'
-	},
-	btnContainer: {
-		alignItems: 'center',
-		justifyContent: 'center'
-	}
-});
+ScoreScreen.propTypes = {
+	navigation: PropTypes.shape({
+		navigate: PropTypes.func.isRequired,
+		state: PropTypes.shape({
+			params: PropTypes.shape({
+				scoreInfo: PropTypes.shape({
+					score: PropTypes.number.isRequired,
+					questionsTotal: PropTypes.number.isRequired
+				})
+			})
+		})
+	}).isRequired,
+	deck: PropTypes.shape({}).isRequired
+};

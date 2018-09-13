@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { textprimaryColor, defaultPrimaryColor, black } from '../utils/colors';
 
@@ -37,27 +38,6 @@ const results = {
 	}
 };
 
-export const ScoreCard = ({
-	score,
-	children,
-	result = 'BETWEEN',
-	questionsTotal,
-
-}) => (
-	<View style={styles.container}>
-		{results[result].getIcon()}
-		<View style={styles.titleContainer}>
-			<Text style={styles.title}>{results[result].msg}</Text>
-		</View>
-		<Text style={styles.title}>
-			{score} of {questionsTotal}
-		</Text>
-		<View>
-			{children}
-		</View>
-	</View>
-);
-
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: 15,
@@ -79,3 +59,31 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	}
 });
+
+export const ScoreCard = ({
+	score,
+	children,
+	result = 'BETWEEN',
+	questionsTotal,
+
+}) => (
+	<View style={styles.container}>
+		{results[result].getIcon()}
+		<View style={styles.titleContainer}>
+			<Text style={styles.title}>{results[result].msg}</Text>
+		</View>
+		<Text style={styles.title}>
+			{score} of {questionsTotal}
+		</Text>
+		<View>
+			{children}
+		</View>
+	</View>
+);
+
+ScoreCard.propTypes = {
+	children: PropTypes.node,
+	result: PropTypes.string,
+	score: PropTypes.number.isRequired,
+	questionsTotal: PropTypes.number.isRequired,
+};

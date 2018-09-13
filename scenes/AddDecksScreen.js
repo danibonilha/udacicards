@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createDeck } from '../store/actions';
 import {
@@ -7,6 +8,20 @@ import {
 	textprimaryColor
 } from '../utils/colors';
 import { TextInput, Button } from '../components';
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: black,
+		justifyContent: 'flex-start'
+	},
+	text: {
+		padding: 25,
+		color: textprimaryColor,
+		fontSize: 35,
+		textAlign: 'center'
+	}
+});
 
 class AddDecksScreen extends Component {
 	state = {
@@ -50,16 +65,9 @@ class AddDecksScreen extends Component {
 
 export default connect(null, { createDeck })(AddDecksScreen);
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: black,
-		justifyContent: 'flex-start'
-	},
-	text: {
-		padding: 25,
-		color: textprimaryColor,
-		fontSize: 35,
-		textAlign: 'center'
-	}
-});
+AddDecksScreen.propTypes = {
+	navigation: PropTypes.shape({
+		navigate: PropTypes.func.isRequired,
+	}).isRequired,
+	createDeck: PropTypes.func.isRequired
+};

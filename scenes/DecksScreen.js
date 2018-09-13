@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Deck } from '../components';
 import { black } from '../utils/colors';
 import { setCurrentDeck } from '../store/actions';
+
+const styles = StyleSheet.create({
+	scrollStyle: {
+		backgroundColor: black
+	},
+	scrollContent: {
+		justifyContent: 'space-around',
+		backgroundColor: black,
+		paddingTop: 5
+	}
+});
 
 class DecksScreen extends Component {
 	handleDeckPress = deckID => () => {
@@ -11,6 +23,7 @@ class DecksScreen extends Component {
 		setCurrentDeck(deckID);
 		navigation.navigate('SingleDeck');
 	};
+
 	render() {
 		const { decks } = this.props;
 		return (
@@ -34,13 +47,10 @@ const mapStateToProps = ({ decks }) => ({ decks });
 
 export default connect(mapStateToProps, { setCurrentDeck })(DecksScreen);
 
-const styles = StyleSheet.create({
-	scrollStyle: {
-		backgroundColor: black
-	},
-	scrollContent: {
-		justifyContent: 'space-around',
-		backgroundColor: black,
-		paddingTop: 5
-	}
-});
+DecksScreen.propTypes = {
+	navigation: PropTypes.shape({
+		navigate: PropTypes.func.isRequired,
+	}).isRequired,
+	decks: PropTypes.shape({}).isRequired,
+	setCurrentDeck: PropTypes.func.isRequired
+};
