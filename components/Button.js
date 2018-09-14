@@ -6,7 +6,7 @@ import { textprimaryColor, defaultPrimaryColor, black } from '../utils/colors';
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: defaultPrimaryColor,
-		margin: 25,
+		margin: 10,
 		borderRadius: 12,
 		justifyContent: 'center',
 		shadowOffset: { width: 2, height: 2 },
@@ -22,13 +22,20 @@ const styles = StyleSheet.create({
 	},
 	disabled: {
 		backgroundColor: '#808080',
+	},
+	setMargin: {
+		marginLeft: 25,
+		marginRight: 25,
 	}
 });
 
-export const Button = ({ label, onPress, disabled = false }) => (
+export const Button = ({ label, onPress, disabled = false, setMargin }) => (
 	<TouchableOpacity
 		onPress={onPress}
-		style={[styles.container, disabled && styles.disabled]}
+		style={[styles.container,
+			disabled && styles.disabled,
+			setMargin && styles.setMargin
+		]}
 		disabled={disabled}
 	>
 		<Text
@@ -42,5 +49,6 @@ export const Button = ({ label, onPress, disabled = false }) => (
 Button.propTypes = {
 	disabled: PropTypes.bool,
 	label: PropTypes.string.isRequired,
-	onPress: PropTypes.func.isRequired
+	onPress: PropTypes.func.isRequired,
+	setMargin: PropTypes.bool
 };

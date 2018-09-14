@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createDeck } from '../store/actions';
@@ -23,12 +23,16 @@ const styles = StyleSheet.create({
 	}
 });
 
+const ALERT_TITLE = 'Uh-oh!';
+const ALERT_MESSAGE = 'A deck with this name already exists, please choose a different one.';
+
 class AddDecksScreen extends Component {
 	static propTypes = {
 		navigation: PropTypes.shape({
 			navigate: PropTypes.func.isRequired,
 		}).isRequired,
-		createDeck: PropTypes.func.isRequired
+		createDeck: PropTypes.func.isRequired,
+		decks: PropTypes.shape({})
 	};
 
 	state = {
@@ -39,11 +43,17 @@ class AddDecksScreen extends Component {
 		this.setState({ deckName });
 	};
 
+	clearName = () => this.setState({ deckName: '' })
+
 	handleCreateDeck = () => {
 		const { deckName } = this.state;
-		const { createDeck, navigation } = this.props;
+		const { createDeck, navigation, decks } = this.props;
+		if(decks[deckName]) {
+			Alert.alert(ALERT_TITLE, ALERT_MESSAGE);
+			return;
+		}
 		createDeck(deckName);
-		this.setState({ deckName: '' });
+		this.clearName();
 		navigation.navigate('Decks');
 	};
 
@@ -64,10 +74,13 @@ class AddDecksScreen extends Component {
 					onPress={this.handleCreateDeck}
 					label="Create Deck"
 					disabled={!deckName}
+					setMargin
 				/>
 			</View>
 		);
 	}
 }
 
-export default connect(null, { createDeck })(AddDecksScreen);
+const mapStateToProps = ({ decks }) => ({ decks });
+
+export default connect(mapStateToProps, { createDeck })(AddDecksScreen);

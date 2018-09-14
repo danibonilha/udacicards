@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
 class ScoreScreen extends Component {
 	static propTypes = {
 		navigation: PropTypes.shape({
-			navigate: PropTypes.func.isRequired,
+			replace: PropTypes.func.isRequired,
+			goBack: PropTypes.func.isRequired,
 			state: PropTypes.shape({
 				params: PropTypes.shape({
 					scoreInfo: PropTypes.shape({
@@ -37,7 +38,8 @@ class ScoreScreen extends Component {
 		}).isRequired
 	};
 
-	navigateTo = route => () => this.props.navigation.navigate(route);
+	navigateToQuiz = () => this.props.navigation.replace('Quiz');
+	navigateToSingleDeck = () => this.props.navigation.goBack();
 
 	handleResult = () => {
 		const { score, questionsTotal } = this.props.navigation.state.params.scoreInfo;
@@ -58,11 +60,11 @@ class ScoreScreen extends Component {
 					<View style={styles.btnContainer}>
 						<Button
 							label="Try it again! 🤓"
-							onPress={this.navigateTo('Quiz')}
+							onPress={this.navigateToQuiz}
 						/>
 						<Button
 							label="Back to Deck 🧐"
-							onPress={this.navigateTo('SingleDeck')}
+							onPress={this.navigateToSingleDeck}
 						/>
 					</View>
 				</ScoreCard>

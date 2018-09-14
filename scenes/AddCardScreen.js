@@ -71,6 +71,7 @@ class AddCardScreen extends Component {
 					onPress={this.handleSubmit}
 					label="Submit"
 					disabled={!question || !answer}
+					setMargin
 				/>
 			</View>
 		);

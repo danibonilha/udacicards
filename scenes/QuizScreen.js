@@ -9,12 +9,6 @@ import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
 const RIGHT = 'CORRECT';
 const WRONG = 'INCORRECT';
 
-const initialState = {
-	flipped: false,
-	questionIndex: 0,
-	score: 0
-};
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -22,9 +16,9 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	btnContainer: {
+		flex: 1,
 		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center'
+		alignItems: 'center'
 	},
 	cardContainer: {
 		flex: 1,
@@ -35,12 +29,16 @@ const styles = StyleSheet.create({
 class QuizScreen extends Component {
 	static propTypes = {
 		navigation: PropTypes.shape({
-			navigate: PropTypes.func.isRequired,
+			replace: PropTypes.func.isRequired,
 		}).isRequired,
 		questions: PropTypes.arrayOf(PropTypes.shape({}))
 	};
 
-	state = initialState
+	state =  {
+		flipped: false,
+		questionIndex: 0,
+		score: 0
+	};
 
 	componentDidMount = () => {
 		clearLocalNotification().then(setLocalNotification());
@@ -57,13 +55,12 @@ class QuizScreen extends Component {
 
 	goToScore = () => {
 		const { score } = this.state;
-		const { navigate } = this.props.navigation;
+		const { replace } = this.props.navigation;
 		const scoreInfo = {
 			score,
 			questionsTotal: this.getQuestionsSize()
 		};
-		this.setState({ ...initialState });
-		navigate('Score', { scoreInfo });
+		replace('Score', { scoreInfo });
 	}
 
 	handleScore = (point) => {
