@@ -24,6 +24,14 @@ const styles = StyleSheet.create({
 	}
 });
 class AddCardScreen extends Component {
+	static propTypes = {
+		navigation: PropTypes.shape({
+			navigate: PropTypes.func.isRequired,
+		}).isRequired,
+		createCard: PropTypes.func.isRequired,
+		currentDeck: PropTypes.string.isRequired
+	};
+
 	state = {
 		[QUESTION]: '',
 		[ANSWER]: ''
@@ -35,7 +43,7 @@ class AddCardScreen extends Component {
 
 	handleSubmit = () => {
 		const { createCard, navigation, currentDeck } = this.props;
-		const card = {...this.state };
+		const card = { ...this.state };
 		createCard({ deckID: currentDeck, card });
 		navigation.goBack();
 	};
@@ -69,14 +77,6 @@ class AddCardScreen extends Component {
 	}
 }
 
-const mapStateToProps = ({ currentDeck }) => ({ currentDeck});
+const mapStateToProps = ({ currentDeck }) => ({ currentDeck });
 
 export default connect(mapStateToProps, { createCard })(AddCardScreen);
-
-AddCardScreen.propTypes = {
-	navigation: PropTypes.shape({
-		navigate: PropTypes.func.isRequired,
-	}).isRequired,
-	createCard: PropTypes.func.isRequired,
-	currentDeck: PropTypes.string.isRequired
-};

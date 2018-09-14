@@ -23,6 +23,19 @@ const styles = StyleSheet.create({
 });
 
 class ScoreScreen extends Component {
+	static propTypes = {
+		navigation: PropTypes.shape({
+			navigate: PropTypes.func.isRequired,
+			state: PropTypes.shape({
+				params: PropTypes.shape({
+					scoreInfo: PropTypes.shape({
+						score: PropTypes.number.isRequired,
+						questionsTotal: PropTypes.number.isRequired
+					})
+				})
+			})
+		}).isRequired
+	};
 
 	navigateTo = route => () => this.props.navigation.navigate(route);
 
@@ -59,18 +72,3 @@ class ScoreScreen extends Component {
 }
 
 export default ScoreScreen;
-
-ScoreScreen.propTypes = {
-	navigation: PropTypes.shape({
-		navigate: PropTypes.func.isRequired,
-		state: PropTypes.shape({
-			params: PropTypes.shape({
-				scoreInfo: PropTypes.shape({
-					score: PropTypes.number.isRequired,
-					questionsTotal: PropTypes.number.isRequired
-				})
-			})
-		})
-	}).isRequired,
-	deck: PropTypes.shape({}).isRequired
-};

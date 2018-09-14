@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
 });
 
 class AddDecksScreen extends Component {
+	static propTypes = {
+		navigation: PropTypes.shape({
+			navigate: PropTypes.func.isRequired,
+		}).isRequired,
+		createDeck: PropTypes.func.isRequired
+	};
+
 	state = {
 		deckName: ''
 	};
@@ -64,10 +71,3 @@ class AddDecksScreen extends Component {
 }
 
 export default connect(null, { createDeck })(AddDecksScreen);
-
-AddDecksScreen.propTypes = {
-	navigation: PropTypes.shape({
-		navigate: PropTypes.func.isRequired,
-	}).isRequired,
-	createDeck: PropTypes.func.isRequired
-};

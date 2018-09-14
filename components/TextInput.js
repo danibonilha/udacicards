@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		color: textprimaryColor,
-		fontSize: 35,
 		backgroundColor: '#4c4c4c',
 		margin: 25,
 		borderRadius: 4,
@@ -21,12 +20,12 @@ export const TextInput = ({
 	multiline = false,
 	onChangeText,
 	value,
-	fontSize,
+	fontSize = 35,
 	autoFocus = true
 }) => (
 	<Input
 		onChangeText={onChangeText}
-		style={[styles.container, fontSize && { fontSize }]}
+		style={[styles.container, { fontSize }]}
 		autoFocus={autoFocus}
 		underlineColorAndroid="transparent"
 		multiline={multiline}
@@ -39,7 +38,7 @@ export const TextInput = ({
 TextInput.propTypes = {
 	onChangeText: PropTypes.func.isRequired,
 	value: PropTypes.string.isRequired,
-	fontSize: PropTypes.number.isRequired,
+	fontSize: PropTypes.number,
 	multiline: PropTypes.bool,
 	autoFocus: PropTypes.bool
 };

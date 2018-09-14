@@ -33,6 +33,13 @@ const styles = StyleSheet.create({
 });
 
 class QuizScreen extends Component {
+	static propTypes = {
+		navigation: PropTypes.shape({
+			navigate: PropTypes.func.isRequired,
+		}).isRequired,
+		questions: PropTypes.arrayOf(PropTypes.shape({}))
+	};
+
 	state = initialState
 
 	componentDidMount = () => {
@@ -138,10 +145,3 @@ const mapStateToProps = ({ decks, currentDeck }) => {
 };
 
 export default connect(mapStateToProps)(QuizScreen);
-
-QuizScreen.propTypes = {
-	navigation: PropTypes.shape({
-		navigate: PropTypes.func.isRequired,
-	}).isRequired,
-	questions: PropTypes.arrayOf(PropTypes.shape({}))
-};

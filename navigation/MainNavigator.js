@@ -25,7 +25,7 @@ export const MainNavigator = createStackNavigator(
 		AddCard: {
 			screen: AddCardScreen,
 			navigationOptions: {
-				title: 'Create Card'
+				title: 'New Card'
 			}
 		},
 		Quiz: {
@@ -37,7 +37,7 @@ export const MainNavigator = createStackNavigator(
 		Score: {
 			screen: ScoreScreen,
 			navigationOptions: {
-				title: 'Check Score'
+				title: 'Score'
 			}
 		}
 	},
