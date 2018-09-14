@@ -1,30 +1,47 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View, Alert, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Deck, Button } from '../components';
-import { black } from '../utils/colors';
+import { black, textprimaryColor, white } from '../utils/colors';
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: black,
-		justifyContent: 'center'
 	},
 	btnContainer: {
-		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	startLabel: {
+		color: textprimaryColor,
+		fontSize: 23,
+		textAlign: 'center',
+		padding: 10
+	},
+	startContainer: {
+		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center'
 	}
 });
+
 class SingleDeckScreen extends Component {
+	static propTypes = {
+		navigation: PropTypes.shape({
+			navigate: PropTypes.func.isRequired,
+		}).isRequired,
+		deck: PropTypes.shape({}).isRequired
+	};
 
 	navigateTo = route => () => this.props.navigation.navigate(route);
 
 	handleQuiz = () => {
 		const { deck } = this.props;
 
-		if(!deck.questions.length){
+		if (!deck.questions.length) {
 			Alert.alert('Oops!',
 				'There are no cards yet, add at least one to start a quiz =)'
 			);
@@ -37,13 +54,23 @@ class SingleDeckScreen extends Component {
 		const { deck } = this.props;
 		return (
 			<View style={styles.container}>
-				<View style={{ justifyContent: 'center' }}>
-					<Deck deck={deck} disabled={true} deckStyle={{ minHeight: 250 }} />
-				</View>
-				<View style={styles.btnContainer}>
-					<Button label="Start Quiz" onPress={this.handleQuiz} />
-					<Button label="Add Card" onPress={this.navigateTo('AddCard')} />
-				</View>
+				<Deck
+					deck={deck}
+					deckStyle={{ minHeight: 400 }}
+					onPress={this.handleQuiz}
+				>
+					<View style={styles.startContainer}>
+						<Text style={styles.startLabel}>
+							Start Quiz
+						</Text>
+						<MaterialCommunityIcons
+							name='cards-outline'
+							size={45}
+							color={white}
+						/>
+					</View>
+				</Deck>
+				<Button label="Add Card" onPress={this.navigateTo('AddCard')} />
 			</View>
 		);
 	}
@@ -53,9 +80,3 @@ const mapStateToProps = ({ decks, currentDeck }) => ({ deck: decks[currentDeck] 
 
 export default connect(mapStateToProps)(SingleDeckScreen);
 
-SingleDeckScreen.propTypes = {
-	navigation: PropTypes.shape({
-		navigate: PropTypes.func.isRequired,
-	}).isRequired,
-	deck: PropTypes.shape({}).isRequired
-};

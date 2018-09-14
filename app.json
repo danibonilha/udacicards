@@ -1,5 +1,20 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "sdkVersion": "27.0.0",
+    "orientation": "portrait",
+    "name": "flashCards",
+    "description": "Flashcards to help you rock!",
+    "slug": "flashCards",
+    "version": "1.0",
+    "icon": "https://cdn0.iconfinder.com/data/icons/education-flat-7/128/09_Examination-512.png",
+    "notification": {
+      "icon": "https://cdn0.iconfinder.com/data/icons/education-flat-7/128/09_Examination-512.png"
+    },
+    "ios": {
+      "bundleIdentifier": "org.danibonilha.exp"
+    },
+    "android": {
+      "package": "org.danibonilha.exp"
+    }
   }
 }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Deck } from '../components';
+import { isEmpty } from 'lodash';
+import { Deck, NoDecks } from '../components';
 import { black } from '../utils/colors';
 import { setCurrentDeck } from '../store/actions';
 
@@ -18,6 +19,14 @@ const styles = StyleSheet.create({
 });
 
 class DecksScreen extends Component {
+	static propTypes = {
+		navigation: PropTypes.shape({
+			navigate: PropTypes.func.isRequired,
+		}).isRequired,
+		decks: PropTypes.shape({}).isRequired,
+		setCurrentDeck: PropTypes.func.isRequired
+	};
+
 	handleDeckPress = deckID => () => {
 		const { setCurrentDeck, navigation } = this.props;
 		setCurrentDeck(deckID);
@@ -31,13 +40,17 @@ class DecksScreen extends Component {
 				style={styles.scrollStyle}
 				contentContainerStyle={styles.scrollContent}
 			>
-				{Object.values(decks).map(deck => (
-					<Deck
-						key={deck.title}
-						deck={deck}
-						onPress={this.handleDeckPress(deck.title)}
-					/>
-				))}
+				{isEmpty(decks)
+					?
+					<NoDecks />
+					:
+					Object.values(decks).map(deck => (
+						<Deck
+							key={deck.title}
+							deck={deck}
+							onPress={this.handleDeckPress(deck.title)}
+						/>
+					))}
 			</ScrollView>
 		);
 	}
@@ -46,11 +59,3 @@ class DecksScreen extends Component {
 const mapStateToProps = ({ decks }) => ({ decks });
 
 export default connect(mapStateToProps, { setCurrentDeck })(DecksScreen);
-
-DecksScreen.propTypes = {
-	navigation: PropTypes.shape({
-		navigate: PropTypes.func.isRequired,
-	}).isRequired,
-	decks: PropTypes.shape({}).isRequired,
-	setCurrentDeck: PropTypes.func.isRequired
-};

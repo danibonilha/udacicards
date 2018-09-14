@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 		borderRadius: 5,
 		margin: 10,
-		maxHeight: 150,
 		minHeight: 120,
 	},
 	title: {
@@ -27,8 +26,8 @@ const handleCardsText = (cardsNumber) => (
 	cardsNumber > 1 ? `${cardsNumber} cards` : `${cardsNumber} card`
 );
 
-export const Deck = ({ deck, onPress, disabled = false, deckStyle }) => (
-	<TouchableOpacity onPress={onPress} disabled={disabled}>
+export const Deck = ({ deck, onPress, deckStyle, children }) => (
+	<TouchableOpacity onPress={onPress}>
 		<View style={[styles.deckContainer, deckStyle]}>
 			<Text style={styles.title}>
 				{deck.title}
@@ -36,6 +35,7 @@ export const Deck = ({ deck, onPress, disabled = false, deckStyle }) => (
 			<Text style={styles.cardsNumber}>
 				{handleCardsText(deck.questions.length)}
 			</Text>
+			{children}
 		</View>
 	</TouchableOpacity>
 );
@@ -43,6 +43,6 @@ export const Deck = ({ deck, onPress, disabled = false, deckStyle }) => (
 Deck.propTypes = {
 	deck: PropTypes.shape({}).isRequired,
 	deckStyle: PropTypes.shape({}),
-	disabled: PropTypes.bool,
-	onPress: PropTypes.func
+	onPress: PropTypes.func,
+	children: PropTypes.node
 };
