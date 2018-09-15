@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { StyleSheet, View, Alert, Text } from 'react-native';
+import { StyleSheet, View, Alert, Text, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -62,29 +62,31 @@ class SingleDeckScreen extends Component {
 	render() {
 		const { deck } = this.props;
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}
+				contentContainerStyle={styles.container}
+			>
 				{deck &&
-				<Fragment>
-					<Deck
-						deck={deck}
-						deckStyle={{ minHeight: 400 }}
-						onPress={this.handleQuiz}
-					>
-						<View style={styles.startContainer}>
-							<Text style={styles.startLabel}>
-							Start Quiz
-							</Text>
-							<MaterialCommunityIcons
-								name='cards-outline'
-								size={45}
-								color={white}
-							/>
-						</View>
-					</Deck>
-					<Button label="Add Card" onPress={this.navigateTo('AddCard')} />
-					<Button label="Remove Deck" onPress={this.removeDeck} />
-				</Fragment>}
-			</View>
+					<Fragment>
+						<Deck
+							deck={deck}
+							deckStyle={{ minHeight: 400 }}
+							onPress={this.handleQuiz}
+						>
+							<View style={styles.startContainer}>
+								<Text style={styles.startLabel}>
+									Start Quiz
+								</Text>
+								<MaterialCommunityIcons
+									name='cards-outline'
+									size={45}
+									color={white}
+								/>
+							</View>
+						</Deck>
+						<Button label="Add Card" onPress={this.navigateTo('AddCard')} />
+						<Button label="Remove Deck" onPress={this.removeDeck} />
+					</Fragment>}
+			</ScrollView>
 		);
 	}
 }
