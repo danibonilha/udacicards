@@ -40,10 +40,6 @@ class QuizScreen extends Component {
 		score: 0
 	};
 
-	componentDidMount = () => {
-		clearLocalNotification().then(setLocalNotification());
-	}
-
 	componentDidMount = async () => {
 		await clearLocalNotification();
 		setLocalNotification();

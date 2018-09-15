@@ -54,7 +54,7 @@ class AddDecksScreen extends Component {
 		}
 		createDeck(deckName);
 		this.clearName();
-		navigation.navigate('Decks');
+		navigation.navigate('SingleDeck');
 	};
 
 	render() {

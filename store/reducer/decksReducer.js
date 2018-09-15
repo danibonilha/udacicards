@@ -17,7 +17,8 @@ export default (state = INITIAL_STATE, action) => {
 						title: payload,
 						questions: []
 					}
-				}
+				},
+				currentDeck: payload
 			};
 		case STORE_CARD:
 			return {
