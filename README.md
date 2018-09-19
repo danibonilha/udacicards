@@ -2,14 +2,14 @@
 
 This is a FlashCards App built with React Native, where you can create and remove decks, each deck can have multiple cards with questions and answers, then you can take a quiz and check your score! If you want, you can be notified every day to never forget to take a quiz. Also when you save your decks they will be store in your device so you don't have to add it again.
 
-To check a running version: https://expo.io/@danibonilha/flashCards
+To download a version for Android: https://expo.io/@danibonilha/flashCards
 
 ## How to run
 
 To get started first clone this repo, then:
 
 ```sh
-$ cd udaciCards
+$ cd udacicards
 $ npm install
 $ npm start
 ```
